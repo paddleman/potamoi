@@ -41,12 +41,10 @@ defmodule PotamoiWeb.Layouts do
         <div class="flex-none">
           <ul class="flex flex-column px-1 space-x-4 items-center">
             <li>
-              <.link href={~p"/"}>Register</.link>
-              <%!-- <.link href={~p"/users/register"}>Register</.link> --%>
+              <.link href={~p"/users/register"}>Register</.link>
             </li>
             <li>
-              <.link href={~p"/"}>Log in</.link>
-              <%!-- <.link href={~p"/users/log-in"}>Log in</.link> --%>
+              <.link href={~p"/users/log-in"}>Log in</.link>
             </li>
           </ul>
         </div>
@@ -82,29 +80,37 @@ defmodule PotamoiWeb.Layouts do
 
   def main_app(assigns) do
     ~H"""
-    <header class="navbar px-4 sm:px-6 lg:px-8">
+    <header class="navbar px-4 border-b sm:px-6 lg:px-8">
       <div class="flex-1">
-        <a href="/" class="flex-1 flex w-fit items-center gap-2">
-          <img src={~p"/images/logo.svg"} width="36" />
+        <a href="/potamoi" class="flex-1 flex w-fit items-center gap-2">
+          <img src={~p"/images/mcelhanney-logo.png"} class="h-6" />
           <span class="text-sm font-semibold">v{Application.spec(:phoenix, :vsn)}</span>
         </a>
       </div>
       <div class="flex-none">
         <ul class="flex flex-column px-1 space-x-4 items-center">
-          <li>
-            <a href="https://phoenixframework.org/" class="btn btn-ghost">Website</a>
-          </li>
-          <li>
-            <a href="https://github.com/phoenixframework/phoenix" class="btn btn-ghost">GitHub</a>
-          </li>
-          <li>
-            <.theme_toggle />
-          </li>
-          <li>
-            <a href="https://hexdocs.pm/phoenix/overview.html" class="btn btn-primary">
-              Get Started <span aria-hidden="true">&rarr;</span>
-            </a>
-          </li>
+          <div class="dropdown dropdown-end">
+            <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
+              <div class="w-12 rounded-full">
+                <img alt="User Avatar" src={@current_scope.user.avatar_url} />
+              </div>
+            </div>
+            <ul
+              tabindex="0"
+              class="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
+            >
+              <li>
+                <.link href={~p"/users/settings"}>Profile</.link>
+              </li>
+
+              <li>
+                <.link href={~p"/users/settings"}>Settings</.link>
+              </li>
+              <li>
+                <.link href={~p"/users/log-out"} method="delete">Log out</.link>
+              </li>
+            </ul>
+          </div>
         </ul>
       </div>
     </header>
