@@ -175,6 +175,33 @@ defmodule Potamoi.Accounts do
     end
   end
 
+  ## Profile
+
+  @doc """
+  Returns an `%Ecto.Changeset{}` for changing the user profile.
+  """
+  def change_user_profile(user, attrs \\ %{}) do
+    User.profile_changeset(user, attrs)
+  end
+
+  @doc """
+  Updates the user profile.
+
+  ## Examples
+
+      iex> update_user_profile(user, %{field: new_value})
+      {:ok, %User{}}
+
+      iex> update_user_profile(user, %{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def update_user_profile(user, attrs) do
+    user
+    |> User.profile_changeset(attrs)
+    |> Repo.update()
+  end
+
   ## Session
 
   @doc """

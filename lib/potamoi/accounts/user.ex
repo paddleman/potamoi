@@ -138,6 +138,19 @@ defmodule Potamoi.Accounts.User do
   end
 
   @doc """
+  A user changeset for updating profile information.
+  """
+  def profile_changeset(user, attrs) do
+    user
+    |> cast(attrs, [:username, :full_name, :avatar_url, :bio, :background_url])
+    |> validate_length(:username, max: 160)
+    |> validate_length(:full_name, max: 160)
+    |> validate_length(:bio, max: 500)
+    |> unsafe_validate_unique(:username, Potamoi.Repo)
+    |> unique_constraint(:username)
+  end
+
+  @doc """
   Confirms the account by setting `confirmed_at`.
   """
   def confirm_changeset(user) do

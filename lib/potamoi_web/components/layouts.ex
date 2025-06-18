@@ -100,7 +100,7 @@ defmodule PotamoiWeb.Layouts do
               class="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
             >
               <li>
-                <.link href={~p"/users/settings"}>Profile</.link>
+                <.link href={~p"/users/profile"}>Profile</.link>
               </li>
 
               <li>
