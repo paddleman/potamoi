@@ -22,32 +22,52 @@
   We ship with two themes, a light one inspired on Phoenix colors and a dark one inspired
   on Elixir colors. Build your own at: https://daisyui.com/theme-generator/ */
 
-/* Custom lidar dark theme with McElhanney colors */
+/* Custom potamoi dark theme with McElhanney colors */
 @plugin "../vendor/daisyui-theme" {
-  name: "lidar-dark";
+  name: "potamoi-dark";
   default: true;
   prefersdark: true;
   color-scheme: "dark";
-  --color-base-100: #014053; /* mc-vdark-teal */
-  --color-base-200: #055259; /* mc-dark-teal */
-  --color-base-300: #00958f; /* mc-med-teal */
-  --color-base-content: #f4f4f5; /* zinc-100 */
-  --color-primary: #00958f; /* mc-med-teal */
-  --color-primary-content: #f4f4f5; /* zinc-100 */
-  --color-secondary: #8dcbca; /* mc-light-teal */
-  --color-secondary-content: #014053; /* mc-vdark-teal */
-  --color-accent: #9cd090; /* mc-med-green */
-  --color-accent-content: #014053; /* mc-vdark-teal */
-  --color-neutral: #aac1c0; /* mc-vlite-teal */
-  --color-neutral-content: #014053; /* mc-vdark-teal */
-  --color-info: #8dcbca; /* mc-light-teal */
-  --color-info-content: #014053; /* mc-vdark-teal */
-  --color-success: #529636; /* mc-dark-green */
-  --color-success-content: #f4f4f5; /* zinc-100 */
-  --color-warning: #b7cb3a; /* mc-med-mustard */
-  --color-warning-content: #014053; /* mc-vdark-teal */
-  --color-error: #8ea02b; /* mc-dark-mustard */
-  --color-error-content: #f4f4f5; /* zinc-100 */
+  --color-base-100: oklch(27.32% 0.063 201.29);
+  /* mc-vdark-teal */
+  --color-base-200: oklch(33.97% 0.073 195.84);
+  /* mc-dark-teal */
+  --color-base-300: oklch(56.38% 0.115 181.73);
+  /* mc-med-teal */
+  --color-base-content: oklch(96.47% 0.004 106.42);
+  /* zinc-100 */
+  --color-primary: oklch(56.38% 0.115 181.73);
+  /* mc-med-teal */
+  --color-primary-content: oklch(96.47% 0.004 106.42);
+  /* zinc-100 */
+  --color-secondary: oklch(79.72% 0.058 184.77);
+  /* mc-light-teal */
+  --color-secondary-content: oklch(27.32% 0.063 201.29);
+  /* mc-vdark-teal */
+  --color-accent: oklch(79.41% 0.094 136.84);
+  /* mc-med-green */
+  --color-accent-content: oklch(27.32% 0.063 201.29);
+  /* mc-vdark-teal */
+  --color-neutral: oklch(74.71% 0.032 187.65);
+  /* mc-vlite-teal */
+  --color-neutral-content: oklch(27.32% 0.063 201.29);
+  /* mc-vdark-teal */
+  --color-info: oklch(79.72% 0.058 184.77);
+  /* mc-light-teal */
+  --color-info-content: oklch(27.32% 0.063 201.29);
+  /* mc-vdark-teal */
+  --color-success: oklch(55.52% 0.098 134.61);
+  /* mc-dark-green */
+  --color-success-content: oklch(96.47% 0.004 106.42);
+  /* zinc-100 */
+  --color-warning: oklch(74.31% 0.154 90.18);
+  /* mc-med-mustard */
+  --color-warning-content: oklch(27.32% 0.063 201.29);
+  /* mc-vdark-teal */
+  --color-error: oklch(61.32% 0.123 93.29);
+  /* mc-dark-mustard */
+  --color-error-content: oklch(96.47% 0.004 106.42);
+  /* zinc-100 */
   --radius-selector: 0.25rem;
   --radius-field: 0.25rem;
   --radius-box: 0.5rem;
@@ -99,10 +119,12 @@
 @custom-variant phx-change-loading (.phx-change-loading&, .phx-change-loading &);
 
 /* Make LiveView wrapper divs transparent for layout */
-[data-phx-session] { display: contents }
+[data-phx-session] {
+  display: contents
+}
 
-/* Background image for lidar-dark theme */
-[data-theme="lidar-dark"] {
+/* Background image for potamoi-dark theme */
+[data-theme="potamoi-dark"] {
   background-image: url('/images/lidar_dark.png');
   background-size: cover;
   background-position: center;

@@ -10,17 +10,28 @@ defmodule PotamoiWeb.UserLive.Profile do
     {:ok,
      socket
      |> assign(:page_title, "Profile")
+     |> assign(:show_modal, false)
      |> assign_form(changeset)
      |> allow_upload(:avatar,
        accept: ~w(.jpg .jpeg .png .gif .webp),
        max_entries: 1,
-       max_file_size: 2_000_000  # 2MB
+       # 2MB
+       max_file_size: 2_000_000
      )
      |> allow_upload(:background,
        accept: ~w(.jpg .jpeg .png .gif .webp),
        max_entries: 1,
-       max_file_size: 5_000_000  # 5MB
+       # 5MB
+       max_file_size: 5_000_000
      )}
+  end
+
+  def handle_event("open_modal", _params, socket) do
+    {:noreply, assign(socket, :show_modal, true)}
+  end
+
+  def handle_event("close_modal", _params, socket) do
+    {:noreply, assign(socket, :show_modal, false)}
   end
 
   def handle_event("cancel-upload", %{"ref" => ref}, socket) do
@@ -38,35 +49,41 @@ defmodule PotamoiWeb.UserLive.Profile do
 
   def handle_event("save", %{"user" => user_params}, socket) do
     # Process uploaded files
-    avatar_urls = consume_uploaded_entries(socket, :avatar, fn %{path: path}, entry ->
-      # Create unique filename
-      filename = "avatar_#{socket.assigns.current_scope.user.id}_#{System.unique_integer()}_#{entry.client_name}"
-      dest_path = Path.join("priv/static/uploads", filename)
+    avatar_urls =
+      consume_uploaded_entries(socket, :avatar, fn %{path: path}, entry ->
+        # Create unique filename
+        filename =
+          "avatar_#{socket.assigns.current_scope.user.id}_#{System.unique_integer()}_#{entry.client_name}"
 
-      # Ensure uploads directory exists
-      File.mkdir_p!(Path.dirname(dest_path))
+        dest_path = Path.join("priv/static/uploads", filename)
 
-      # Copy uploaded file
-      File.cp!(path, dest_path)
+        # Ensure uploads directory exists
+        File.mkdir_p!(Path.dirname(dest_path))
 
-      # Return the URL path
-      {:ok, "/uploads/#{filename}"}
-    end)
+        # Copy uploaded file
+        File.cp!(path, dest_path)
 
-    background_urls = consume_uploaded_entries(socket, :background, fn %{path: path}, entry ->
-      # Create unique filename
-      filename = "background_#{socket.assigns.current_scope.user.id}_#{System.unique_integer()}_#{entry.client_name}"
-      dest_path = Path.join("priv/static/uploads", filename)
+        # Return the URL path
+        {:ok, "/uploads/#{filename}"}
+      end)
 
-      # Ensure uploads directory exists
-      File.mkdir_p!(Path.dirname(dest_path))
+    background_urls =
+      consume_uploaded_entries(socket, :background, fn %{path: path}, entry ->
+        # Create unique filename
+        filename =
+          "background_#{socket.assigns.current_scope.user.id}_#{System.unique_integer()}_#{entry.client_name}"
 
-      # Copy uploaded file
-      File.cp!(path, dest_path)
+        dest_path = Path.join("priv/static/uploads", filename)
 
-      # Return the URL path
-      {:ok, "/uploads/#{filename}"}
-    end)
+        # Ensure uploads directory exists
+        File.mkdir_p!(Path.dirname(dest_path))
+
+        # Copy uploaded file
+        File.cp!(path, dest_path)
+
+        # Return the URL path
+        {:ok, "/uploads/#{filename}"}
+      end)
 
     # Add uploaded file URLs to user params
     user_params_with_uploads =
@@ -79,6 +96,7 @@ defmodule PotamoiWeb.UserLive.Profile do
         {:noreply,
          socket
          |> put_flash(:info, "Profile updated successfully!")
+         |> assign(:show_modal, false)
          |> assign(:current_scope, %{socket.assigns.current_scope | user: user})}
 
       {:error, %Ecto.Changeset{} = changeset} ->
