@@ -6,7 +6,7 @@ config :potamoi, Potamoi.Repo,
   password: "postgres",
   hostname: "localhost",
   database: "potamoi_dev",
-  port: 5431,
+  port: 5432,
   stacktrace: true,
   show_sensitive_data_on_connection_error: true,
   pool_size: 10

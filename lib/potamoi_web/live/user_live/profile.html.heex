@@ -3,16 +3,10 @@
     <!-- Header with current avatar and background -->
     <div class="relative mb-2">
       <!-- Background Image -->
-      <div
+      <img
         class="h-48 w-full rounded-xl bg-gradient-to-r from-base-300 to-base-200 bg-cover bg-center relative"
-        style={
-          if @current_scope.user.background_url,
-            do: "background-image: url(#{@current_scope.user.background_url})",
-            else: ""
-        }
+        src={@current_scope.user.background_url || "/images/default-background.jpg"}
       >
-        <div class="absolute inset-0 bg-black bg-opacity-30 rounded-xl"></div>
-      </div>
       
 <!-- Avatar -->
       <div class="absolute -bottom-16 left-8">
